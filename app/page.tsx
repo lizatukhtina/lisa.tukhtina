@@ -143,6 +143,12 @@ export default function Portfolio() {
       <Card className="glass-card p-8 md:p-12 max-w-2xl w-full text-center space-y-8">
         <div className="space-y-6">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
+            Хасиб
+          </h1>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
+            ❤️
+          </h1>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
             Елизавета Тухтина
           </h1>
         </div>
