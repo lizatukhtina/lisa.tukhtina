@@ -1,372 +1,523 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Twitter, FileText, Menu, X } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Send,
+  Mail,
+  FileText,
+  Languages,
+} from "lucide-react";
 
-const translations = {
+type Language = "ru" | "en";
+
+const content = {
   ru: {
-    name: "Елизавета Тухтина",
-    title: "AI Engineer / Prompt Engineer",
-    tagline:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore",
+    hero: {
+      name: "Елизавета Алексеевна Тухтина",
+      title: "AI Engineer / Prompt Engineer",
+      tagline: "Разработка и внедрение AI-решений для бизнеса",
+    },
     nav: {
       about: "О себе",
       skills: "Навыки",
-      links: "Контакты",
+      experience: "Опыт",
+      education: "Образование",
+      contact: "Контакты",
     },
     about: {
       title: "О себе",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      text: "Специалист по AI инженерии и промпт-инжинирингу с опытом разработки и внедрения генеративных AI-решений в продакшн. Специализируюсь на создании промпт-архитектур, тонкой настройке LLM моделей и разработке AI-агентов. Имею опыт работы с OpenAI, открытыми LLM, а также исследований в области NLP.",
     },
     skills: {
-      title: "Экспертиза",
-      list: [
+      title: "Навыки",
+      items: [
+        "NLP",
+        "Prompt Engineering",
+        "Generative AI",
+        "OpenAI, Open-Source LLMs",
+        "PyTorch, Transformers",
+        "Docker, Linux",
+        "Agentic AI, Langfuse, Qwen",
+        "Machine Learning, Deep Learning",
+        "Git, pandas, sklearn, NLTK",
+      ],
+    },
+    experience: {
+      title: "Опыт работы",
+      items: [
         {
-          name: "Prompt Engineering",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          role: "Prompt Engineer",
+          company: "1C-Bitrix",
+          period: "Апрель 2024 – Октябрь 2025",
+          description: [
+            "Проектирование и внедрение промптов от PoC до релиза",
+            "AI-решения: агенты для онбординга в CRM, AI лендинги, суммаризация встреч, аналитика звонков, рекомендации для продаж, инсайты по продуктивности",
+            "Промпт-архитектуры, структурированные выводы, контекстная инженерия",
+            "Тестирование промптов, датасеты, red-teaming, QA",
+            "Соответствие EU AI Act",
+          ],
+          tech: "Python, OpenAI, GigaChat, YandexGPT, Langfuse, Whisper, Open-Source LLMs",
         },
         {
-          name: "LLM Integration",
-          description: "Sed do eiusmod tempor incididunt ut labore et dolore",
-        },
-        {
-          name: "AI Architecture",
-          description: "Ut enim ad minim veniam, quis nostrud exercitation",
-        },
-        {
-          name: "Python & TypeScript",
-          description: "Duis aute irure dolor in reprehenderit in voluptate",
-        },
-        {
-          name: "Vector Databases",
-          description: "Excepteur sint occaecat cupidatat non proident",
-        },
-        {
-          name: "AI Ethics",
-          description: "Sunt in culpa qui officia deserunt mollit anim",
+          role: "Junior NLP Researcher",
+          company: "Innopolis University",
+          period: "Сентябрь 2023 – Февраль 2024",
+          description: [
+            "Синтетические датасеты для дообучения LLM",
+            "Дообучение Mistral, Llama2 (русский язык)",
+            "Оценка моделей",
+            "Научная публикация (Springer)",
+          ],
+          tech: "Python, PyTorch, Transformers, PEFT (LoRA), Llama2, CodeLlama, Mistral",
         },
       ],
     },
-    links: {
+    education: {
+      title: "Образование",
+      items: [
+        {
+          degree: "Магистратура, Компьютерная лингвистика",
+          institution: "НИУ ВШЭ Москва",
+          year: "2023",
+        },
+        {
+          degree: "Бакалавриат, Информационные системы и технологии",
+          institution: "Сибирский федеральный университет",
+          year: "2021",
+        },
+      ],
+    },
+    languages: {
+      title: "Языки",
+      items: [
+        { name: "Русский", level: "Родной" },
+        { name: "Английский", level: "C1 (Advanced)" },
+      ],
+    },
+    contact: {
       title: "Контакты",
       resume: "Резюме",
-      github: "GitHub",
-      linkedin: "LinkedIn",
-      twitter: "Twitter",
+      telegram: "Telegram",
+      email: "Email",
     },
-    footer: "© 2025 Елизавета Тухтина. Создано с заботой о доступности.",
   },
   en: {
-    name: "Елизавета Тухтина",
-    title: "AI Engineer / Prompt Engineer",
-    tagline:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore",
+    hero: {
+      name: "Elizaveta Alekseevna Tukhtina",
+      title: "AI Engineer / Prompt Engineer",
+      tagline: "Developing and deploying AI solutions for business",
+    },
     nav: {
       about: "About",
       skills: "Skills",
-      links: "Links",
+      experience: "Experience",
+      education: "Education",
+      contact: "Contact",
     },
     about: {
-      title: "About Me",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      title: "About",
+      text: "AI Engineer and Prompt Engineering specialist with experience in developing and deploying generative AI solutions to production. Specializing in prompt architectures, LLM fine-tuning, and AI agent development. Experienced with OpenAI, open-source LLMs, and NLP research.",
     },
     skills: {
-      title: "Expertise",
-      list: [
+      title: "Skills",
+      items: [
+        "NLP",
+        "Prompt Engineering",
+        "Generative AI",
+        "OpenAI, Open-Source LLMs",
+        "PyTorch, Transformers",
+        "Docker, Linux",
+        "Agentic AI, Langfuse, Qwen",
+        "Machine Learning, Deep Learning",
+        "Git, pandas, sklearn, NLTK",
+      ],
+    },
+    experience: {
+      title: "Experience",
+      items: [
         {
-          name: "Prompt Engineering",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          role: "Prompt Engineer",
+          company: "1C-Bitrix",
+          period: "April 2024 – October 2025",
+          description: [
+            "Designed and productionized prompts from PoC to release",
+            "AI solutions: CRM onboarding agents, AI landing pages, meeting summarization, speech analytics, sales recommendations, productivity insights",
+            "Prompt architectures, structured outputs, context engineering",
+            "Prompt testing, datasets, red-teaming, QA",
+            "EU AI Act compliance",
+          ],
+          tech: "Python, OpenAI, GigaChat, YandexGPT, Langfuse, Whisper, Open-Source LLMs",
         },
         {
-          name: "LLM Integration",
-          description: "Sed do eiusmod tempor incididunt ut labore et dolore",
-        },
-        {
-          name: "AI Architecture",
-          description: "Ut enim ad minim veniam, quis nostrud exercitation",
-        },
-        {
-          name: "Python & TypeScript",
-          description: "Duis aute irure dolor in reprehenderit in voluptate",
-        },
-        {
-          name: "Vector Databases",
-          description: "Excepteur sint occaecat cupidatat non proident",
-        },
-        {
-          name: "AI Ethics",
-          description: "Sunt in culpa qui officia deserunt mollit anim",
+          role: "Junior NLP Researcher",
+          company: "Innopolis University",
+          period: "September 2023 – February 2024",
+          description: [
+            "Synthetic datasets for LLM fine-tuning",
+            "Fine-tuning Mistral, Llama2 (Russian)",
+            "Model evaluation",
+            "Research paper (Springer)",
+          ],
+          tech: "Python, PyTorch, Transformers, PEFT (LoRA), Llama2, CodeLlama, Mistral",
         },
       ],
     },
-    links: {
-      title: "Connect",
-      resume: "Resume",
-      github: "GitHub",
-      linkedin: "LinkedIn",
-      twitter: "Twitter",
+    education: {
+      title: "Education",
+      items: [
+        {
+          degree: "MSc Computational Linguistics",
+          institution: "HSE Moscow",
+          year: "2023",
+        },
+        {
+          degree: "BSc Information Systems & Technologies",
+          institution: "Siberian Federal University",
+          year: "2021",
+        },
+      ],
     },
-    footer: "© 2025 Елизавета Тухтина. Crafted with care for accessibility.",
+    languages: {
+      title: "Languages",
+      items: [
+        { name: "Russian", level: "Native" },
+        { name: "English", level: "C1 (Advanced)" },
+      ],
+    },
+    contact: {
+      title: "Contact",
+      resume: "Resume",
+      telegram: "Telegram",
+      email: "Email",
+    },
   },
 };
 
 export default function Portfolio() {
-  const [locale, setLocale] = useState<"ru" | "en">("ru");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const t = translations[locale];
+  const [lang, setLang] = useState<Language>("ru");
+  const [mounted, setMounted] = useState(false);
+  const t = content[lang];
 
   useEffect(() => {
-    document.documentElement.lang = locale;
-  }, [locale]);
-
-  const toggleLocale = () => {
-    setLocale(locale === "ru" ? "en" : "ru");
-    setMobileMenuOpen(false);
-  };
+    setMounted(true);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
-      setMobileMenuOpen(false);
     }
   };
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <div className="min-h-screen bg-background text-foreground flex items-center justify-center p-4">
-      <Card className="glass-card p-8 md:p-12 max-w-2xl w-full text-center space-y-8">
-        <div className="space-y-6">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-            Хасиб
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
+        <nav className="container mx-auto flex items-center justify-between px-4 py-4 md:px-6">
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => scrollToSection("hero")}
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              aria-label={lang === "ru" ? "На главную" : "Go to top"}
+            >
+              ET
+            </button>
+            <div className="hidden items-center gap-6 md:flex">
+              <button
+                onClick={() => scrollToSection("about")}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              >
+                {t.nav.about}
+              </button>
+              <button
+                onClick={() => scrollToSection("skills")}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              >
+                {t.nav.skills}
+              </button>
+              <button
+                onClick={() => scrollToSection("experience")}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              >
+                {t.nav.experience}
+              </button>
+              <button
+                onClick={() => scrollToSection("education")}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              >
+                {t.nav.education}
+              </button>
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              >
+                {t.nav.contact}
+              </button>
+            </div>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setLang(lang === "ru" ? "en" : "ru")}
+            className="gap-2"
+            aria-label={
+              lang === "ru" ? "Switch to English" : "Переключить на русский"
+            }
+          >
+            <Languages className="h-4 w-4" aria-hidden="true" />
+            {lang === "ru" ? "EN" : "RU"}
+          </Button>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section
+        id="hero"
+        className="container mx-auto px-4 pt-32 pb-20 md:px-6 md:pt-40 md:pb-32"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h1 className="text-balance font-sans text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
+            {t.hero.name}
           </h1>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-            ❤️
-          </h1>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-            Елизавета Тухтина
-          </h1>
+          <p className="mt-4 text-xl text-primary md:text-2xl">
+            {t.hero.title}
+          </p>
+          <p className="mt-6 text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
+            {t.hero.tagline}
+          </p>
         </div>
-      </Card>
+      </section>
+
+      {/* About Section */}
+      <section
+        id="about"
+        className="container mx-auto px-4 py-20 md:px-6 md:py-32"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-8 text-3xl font-bold md:text-4xl">
+            {t.about.title}
+          </h2>
+          <div className="glass-card rounded-2xl border border-border/40 bg-card/50 p-6 backdrop-blur-xl md:p-8">
+            <p className="text-pretty text-lg leading-relaxed text-card-foreground">
+              {t.about.text}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section
+        id="skills"
+        className="container mx-auto px-4 py-20 md:px-6 md:py-32"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-8 text-3xl font-bold md:text-4xl">
+            {t.skills.title}
+          </h2>
+          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+            {t.skills.items.map((skill, index) => (
+              <div
+                key={index}
+                className="glass-card rounded-xl border border-border/40 bg-card/50 px-4 py-3 backdrop-blur-xl transition-colors hover:bg-card/70"
+              >
+                <p className="text-sm font-medium text-card-foreground md:text-base">
+                  {skill}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section
+        id="experience"
+        className="container mx-auto px-4 py-20 md:px-6 md:py-32"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-8 text-3xl font-bold md:text-4xl">
+            {t.experience.title}
+          </h2>
+          <div className="space-y-8">
+            {t.experience.items.map((job, index) => (
+              <div
+                key={index}
+                className="glass-card rounded-2xl border border-border/40 bg-card/50 p-6 backdrop-blur-xl md:p-8"
+              >
+                <div className="mb-4">
+                  <h3 className="text-xl font-semibold text-card-foreground md:text-2xl">
+                    {job.role}
+                  </h3>
+                  <p className="mt-1 text-lg text-primary">{job.company}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {job.period}
+                  </p>
+                </div>
+                <ul className="mb-4 space-y-2">
+                  {job.description.map((item, i) => (
+                    <li
+                      key={i}
+                      className="text-pretty text-sm leading-relaxed text-card-foreground md:text-base"
+                    >
+                      • {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {job.tech.split(", ").map((tech, i) => (
+                    <span
+                      key={i}
+                      className="rounded-full bg-accent/30 px-3 py-1 text-xs font-medium text-accent-foreground"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section
+        id="education"
+        className="container mx-auto px-4 py-20 md:px-6 md:py-32"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-8 text-3xl font-bold md:text-4xl">
+            {t.education.title}
+          </h2>
+          <div className="space-y-6">
+            {t.education.items.map((edu, index) => (
+              <div
+                key={index}
+                className="glass-card rounded-2xl border border-border/40 bg-card/50 p-6 backdrop-blur-xl md:p-8"
+              >
+                <h3 className="text-lg font-semibold text-card-foreground md:text-xl">
+                  {edu.degree}
+                </h3>
+                <p className="mt-2 text-base text-primary">{edu.institution}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{edu.year}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12">
+            <h3 className="mb-6 text-2xl font-bold md:text-3xl">
+              {t.languages.title}
+            </h3>
+            <div className="glass-card rounded-2xl border border-border/40 bg-card/50 p-6 backdrop-blur-xl md:p-8">
+              <div className="space-y-3">
+                {t.languages.items.map((language, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="font-medium text-card-foreground">
+                      {language.name}
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      {language.level}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section
+        id="contact"
+        className="container mx-auto px-4 py-20 pb-32 md:px-6 md:py-32"
+      >
+        <div className="mx-auto max-w-4xl">
+          <h2 className="mb-8 text-3xl font-bold md:text-4xl">
+            {t.contact.title}
+          </h2>
+          <div className="glass-card rounded-2xl border border-border/40 bg-card/50 p-6 backdrop-blur-xl md:p-8">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <a
+                href="/resume/lisa-tukhtina.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-xl border border-border/40 bg-background/50 p-4 transition-colors hover:bg-background/70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card"
+                aria-label={t.contact.resume}
+              >
+                <FileText className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium">{t.contact.resume}</span>
+              </a>
+              <a
+                href="https://github.com/lizatukhtina"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-xl border border-border/40 bg-background/50 p-4 transition-colors hover:bg-background/70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card"
+                aria-label="GitHub"
+              >
+                <Github className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium">GitHub</span>
+              </a>
+              <a
+                href="https://linkedin.com/in/elizaveta-tukhtina-321931135"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-xl border border-border/40 bg-background/50 p-4 transition-colors hover:bg-background/70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium">LinkedIn</span>
+              </a>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-xl border border-border/40 bg-background/50 p-4 transition-colors hover:bg-background/70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card"
+                aria-label="Twitter / X"
+              >
+                <Twitter className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium">Twitter / X</span>
+              </a>
+              <a
+                href="https://t.me/lizatukhtina"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 rounded-xl border border-border/40 bg-background/50 p-4 transition-colors hover:bg-background/70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card"
+                aria-label={t.contact.telegram}
+              >
+                <Send className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium">{t.contact.telegram}</span>
+              </a>
+              <a
+                href="mailto:tukhtinalisa@gmail.com"
+                className="flex items-center gap-3 rounded-xl border border-border/40 bg-background/50 p-4 transition-colors hover:bg-background/70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-card"
+                aria-label={t.contact.email}
+              >
+                <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
+                <span className="font-medium">{t.contact.email}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-border/40 bg-card/30 backdrop-blur-xl">
+        <div className="container mx-auto px-4 py-8 md:px-6">
+          <p className="text-center text-sm text-muted-foreground">
+            © 2025 {t.hero.name}
+          </p>
+        </div>
+      </footer>
     </div>
   );
-
-  // return (
-  //   <div className="min-h-screen bg-background text-foreground">
-  //     {/* Header */}
-  //     <header className="fixed top-0 left-0 right-0 z-50 glass-header">
-  //       <nav className="container mx-auto px-4 py-4 flex items-center justify-between" aria-label="Main navigation">
-  //         <div className="text-lg font-semibold">AI</div>
-
-  //         {/* Desktop Navigation */}
-  //         <div className="hidden md:flex items-center gap-8">
-  //           <button
-  //             onClick={() => scrollToSection("about")}
-  //             className="text-sm hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-  //           >
-  //             {t.nav.about}
-  //           </button>
-  //           <button
-  //             onClick={() => scrollToSection("skills")}
-  //             className="text-sm hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-  //           >
-  //             {t.nav.skills}
-  //           </button>
-  //           <button
-  //             onClick={() => scrollToSection("links")}
-  //             className="text-sm hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-  //           >
-  //             {t.nav.links}
-  //           </button>
-  //           <div className="flex gap-2 ml-4">
-  //             <Button
-  //               variant={locale === "ru" ? "default" : "ghost"}
-  //               size="sm"
-  //               onClick={() => setLocale("ru")}
-  //               aria-label="Switch to Russian"
-  //               aria-pressed={locale === "ru"}
-  //             >
-  //               RU
-  //             </Button>
-  //             <Button
-  //               variant={locale === "en" ? "default" : "ghost"}
-  //               size="sm"
-  //               onClick={() => setLocale("en")}
-  //               aria-label="Switch to English"
-  //               aria-pressed={locale === "en"}
-  //             >
-  //               EN
-  //             </Button>
-  //           </div>
-  //         </div>
-
-  //         {/* Mobile Menu Button */}
-  //         <button
-  //           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-  //           className="md:hidden p-2 hover:bg-accent rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-  //           aria-expanded={mobileMenuOpen}
-  //         >
-  //           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-  //         </button>
-  //       </nav>
-
-  //       {/* Mobile Menu */}
-  //       {mobileMenuOpen && (
-  //         <div className="md:hidden glass-card border-t border-border">
-  //           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-  //             <button
-  //               onClick={() => scrollToSection("about")}
-  //               className="text-left py-2 hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //             >
-  //               {t.nav.about}
-  //             </button>
-  //             <button
-  //               onClick={() => scrollToSection("skills")}
-  //               className="text-left py-2 hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //             >
-  //               {t.nav.skills}
-  //             </button>
-  //             <button
-  //               onClick={() => scrollToSection("links")}
-  //               className="text-left py-2 hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //             >
-  //               {t.nav.links}
-  //             </button>
-  //             <div className="flex gap-2 pt-2 border-t border-border">
-  //               <Button
-  //                 variant={locale === "ru" ? "default" : "ghost"}
-  //                 size="sm"
-  //                 onClick={() => setLocale("ru")}
-  //                 aria-label="Switch to Russian"
-  //                 aria-pressed={locale === "ru"}
-  //               >
-  //                 RU
-  //               </Button>
-  //               <Button
-  //                 variant={locale === "en" ? "default" : "ghost"}
-  //                 size="sm"
-  //                 onClick={() => setLocale("en")}
-  //                 aria-label="Switch to English"
-  //                 aria-pressed={locale === "en"}
-  //               >
-  //                 EN
-  //               </Button>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       )}
-  //     </header>
-
-  //     <main>
-  //       {/* Hero Section */}
-  //       <section className="pt-32 pb-20 px-4" aria-labelledby="hero-heading">
-  //         <div className="container mx-auto max-w-4xl">
-  //           <div className="text-center space-y-6">
-  //             <h1 id="hero-heading" className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-  //               {t.name}
-  //             </h1>
-  //             <p className="text-xl md:text-2xl text-muted-foreground">{t.title}</p>
-  //             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">{t.tagline}</p>
-  //           </div>
-  //         </div>
-  //       </section>
-
-  //       {/* About Section */}
-  //       <section id="about" className="py-20 px-4" aria-labelledby="about-heading">
-  //         <div className="container mx-auto max-w-4xl">
-  //           <Card className="glass-card p-8 md:p-12">
-  //             <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-6">
-  //               {t.about.title}
-  //             </h2>
-  //             <p className="text-lg leading-relaxed text-muted-foreground">{t.about.description}</p>
-  //           </Card>
-  //         </div>
-  //       </section>
-
-  //       {/* Skills Section */}
-  //       <section id="skills" className="py-20 px-4" aria-labelledby="skills-heading">
-  //         <div className="container mx-auto max-w-6xl">
-  //           <h2 id="skills-heading" className="text-3xl md:text-4xl font-bold mb-12 text-center">
-  //             {t.skills.title}
-  //           </h2>
-  //           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  //             {t.skills.list.map((skill, index) => (
-  //               <Card
-  //                 key={index}
-  //                 className="glass-card p-6 hover:scale-[1.02] transition-transform motion-reduce:hover:scale-100"
-  //               >
-  //                 <h3 className="text-xl font-semibold mb-3">{skill.name}</h3>
-  //                 <p className="text-muted-foreground leading-relaxed">{skill.description}</p>
-  //               </Card>
-  //             ))}
-  //           </div>
-  //         </div>
-  //       </section>
-
-  //       {/* Links Section */}
-  //       <section id="links" className="py-20 px-4" aria-labelledby="links-heading">
-  //         <div className="container mx-auto max-w-4xl">
-  //           <Card className="glass-card p-8 md:p-12">
-  //             <h2 id="links-heading" className="text-3xl md:text-4xl font-bold mb-8">
-  //               {t.links.title}
-  //             </h2>
-  //             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-  //               <a
-  //                 href="https://example.com/resume.pdf"
-  //                 target="_blank"
-  //                 rel="noopener noreferrer"
-  //                 className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //                 aria-label={`${t.links.resume} (opens in new tab)`}
-  //               >
-  //                 <FileText size={24} aria-hidden="true" />
-  //                 <span className="font-medium">{t.links.resume}</span>
-  //               </a>
-  //               <a
-  //                 href="https://github.com/yourusername"
-  //                 target="_blank"
-  //                 rel="noopener noreferrer"
-  //                 className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //                 aria-label={`${t.links.github} (opens in new tab)`}
-  //               >
-  //                 <Github size={24} aria-hidden="true" />
-  //                 <span className="font-medium">{t.links.github}</span>
-  //               </a>
-  //               <a
-  //                 href="https://linkedin.com/in/yourusername"
-  //                 target="_blank"
-  //                 rel="noopener noreferrer"
-  //                 className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //                 aria-label={`${t.links.linkedin} (opens in new tab)`}
-  //               >
-  //                 <Linkedin size={24} aria-hidden="true" />
-  //                 <span className="font-medium">{t.links.linkedin}</span>
-  //               </a>
-  //               <a
-  //                 href="https://twitter.com/yourusername"
-  //                 target="_blank"
-  //                 rel="noopener noreferrer"
-  //                 className="flex items-center gap-3 p-4 rounded-lg border border-border hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-  //                 aria-label={`${t.links.twitter} (opens in new tab)`}
-  //               >
-  //                 <Twitter size={24} aria-hidden="true" />
-  //                 <span className="font-medium">{t.links.twitter}</span>
-  //               </a>
-  //             </div>
-  //           </Card>
-  //         </div>
-  //       </section>
-  //     </main>
-
-  //     {/* Footer */}
-  //     <footer className="py-8 px-4 border-t border-border">
-  //       <div className="container mx-auto max-w-4xl text-center text-sm text-muted-foreground">{t.footer}</div>
-  //     </footer>
-  //   </div>
-  // )
 }

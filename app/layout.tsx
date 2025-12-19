@@ -1,22 +1,34 @@
-import type React from "react";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type React from "react"
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Лиза — AI-инженер и промпт-инженер",
+  title: "Elizaveta Tukhtina | AI Engineer & Prompt Engineer",
   description:
-    "AI-инженер, специализирующийся на промпт-инжиниринге и интеграции LLM. Создаю интеллектуальные системы, меняющие взаимодействие людей с ИИ.",
-  generator: "v0.app",
+    "AI Engineer and Prompt Engineering specialist with experience in developing and deploying generative AI solutions. Specializing in prompt architectures, LLM fine-tuning, and AI agent development.",
+  keywords: ["AI Engineer", "Prompt Engineer", "NLP", "Machine Learning", "Generative AI", "LLM", "OpenAI"],
+  authors: [{ name: "Elizaveta Tukhtina" }],
+  creator: "Elizaveta Tukhtina",
   openGraph: {
-    title: "Лиза — AI-инженер и промпт-инженер",
-    description:
-      "AI-инженер, специализирующийся на промпт-инжиниринге и интеграции LLM.",
     type: "website",
+    title: "Elizaveta Tukhtina | AI Engineer & Prompt Engineer",
+    description:
+      "AI Engineer and Prompt Engineering specialist with experience in developing and deploying generative AI solutions.",
+    siteName: "Elizaveta Tukhtina Portfolio",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Elizaveta Tukhtina | AI Engineer & Prompt Engineer",
+    description:
+      "AI Engineer and Prompt Engineering specialist with experience in developing and deploying generative AI solutions.",
+    creator: "@lizatukhtina",
+  },
+  generator: "v0.app",
   icons: {
     icon: [
       {
@@ -34,16 +46,19 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="ru" className="dark">
-      <body className={`font-sans antialiased`}>{children}</body>
+      <body className={`font-sans antialiased`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
-  );
+  )
 }
