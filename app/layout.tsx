@@ -7,14 +7,14 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lisa - AI Engineer / Prompt Engineer",
+  title: "Лиза — AI-инженер и промпт-инженер",
   description:
-    "AI Engineer specializing in prompt engineering and LLM integration. Creating intelligent systems that transform how people interact with AI.",
+    "AI-инженер, специализирующийся на промпт-инжиниринге и интеграции LLM. Создаю интеллектуальные системы, меняющие взаимодействие людей с ИИ.",
   generator: "v0.app",
   openGraph: {
-    title: "Lisa - AI Engineer / Prompt Engineer",
+    title: "Лиза — AI-инженер и промпт-инженер",
     description:
-      "AI Engineer specializing in prompt engineering and LLM integration",
+      "AI-инженер, специализирующийся на промпт-инжиниринге и интеграции LLM.",
     type: "website",
   },
   icons: {

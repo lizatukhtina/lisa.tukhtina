@@ -7,7 +7,7 @@ import { Github, Linkedin, Twitter, FileText, Menu, X } from "lucide-react";
 
 const translations = {
   ru: {
-    name: "Элзаветта Тухтина",
+    name: "Елизавета Тухтина",
     title: "AI Engineer / Prompt Engineer",
     tagline:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore",
@@ -58,10 +58,10 @@ const translations = {
       linkedin: "LinkedIn",
       twitter: "Twitter",
     },
-    footer: "© 2025 Элзаветта Тухтина. Создано с заботой о доступности.",
+    footer: "© 2025 Елизавета Тухтина. Создано с заботой о доступности.",
   },
   en: {
-    name: "Elzavetta Tukhtina",
+    name: "Елизавета Тухтина",
     title: "AI Engineer / Prompt Engineer",
     tagline:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore",
@@ -112,7 +112,7 @@ const translations = {
       linkedin: "LinkedIn",
       twitter: "Twitter",
     },
-    footer: "© 2025 Elzavetta Tukhtina. Crafted with care for accessibility.",
+    footer: "© 2025 Елизавета Тухтина. Crafted with care for accessibility.",
   },
 };
 
@@ -143,7 +143,7 @@ export default function Portfolio() {
       <Card className="glass-card p-8 md:p-12 max-w-2xl w-full text-center space-y-8">
         <div className="space-y-6">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-balance">
-            Элизабетта Тухтина
+            Елизавета Тухтина
           </h1>
         </div>
       </Card>
