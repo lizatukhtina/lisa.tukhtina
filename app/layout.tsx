@@ -1,20 +1,20 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Alexander Ivanov - AI Engineer / Prompt Engineer",
+  title: "Lisa - AI Engineer / Prompt Engineer",
   description:
     "AI Engineer specializing in prompt engineering and LLM integration. Creating intelligent systems that transform how people interact with AI.",
   generator: "v0.app",
   openGraph: {
-    title: "Alexander Ivanov - AI Engineer / Prompt Engineer",
-    description: "AI Engineer specializing in prompt engineering and LLM integration",
+    title: "Lisa - AI Engineer / Prompt Engineer",
+    description:
+      "AI Engineer specializing in prompt engineering and LLM integration",
     type: "website",
   },
   icons: {
@@ -34,19 +34,16 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="ru" className="dark">
-      <body className={`font-sans antialiased`}>
-        {children}
-        <Analytics />
-      </body>
+      <body className={`font-sans antialiased`}>{children}</body>
     </html>
-  )
+  );
 }
