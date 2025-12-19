@@ -41,6 +41,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Forcing dark mode for now
   return (
     <html lang="ru" className="dark">
       <body className={`font-sans antialiased`}>{children}</body>
