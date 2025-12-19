@@ -11,6 +11,7 @@ import {
   FileText,
   Languages,
 } from "lucide-react";
+import Image from "next/image";
 
 type Language = "ru" | "en";
 
@@ -223,13 +224,22 @@ export default function Portfolio() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <nav className="container mx-auto flex items-center justify-between px-4 py-4 md:px-6">
           <div className="flex items-center gap-6">
-            <button
+            {/* <button
               onClick={() => scrollToSection("hero")}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
               aria-label={lang === "ru" ? "На главную" : "Go to top"}
             >
-              ET
-            </button>
+            </button> */}
+            <div className="relative h-24 w-24">
+              <Image
+                src="/logorsk.svg"
+                alt="Logo"
+                fill
+                priority
+                className="object-contain"
+              />
+            </div>
+
             <div className="hidden items-center gap-6 md:flex">
               <button
                 onClick={() => scrollToSection("about")}

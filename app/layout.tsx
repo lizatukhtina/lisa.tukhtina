@@ -1,17 +1,25 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Elizaveta Tukhtina | AI Engineer & Prompt Engineer",
   description:
     "AI Engineer and Prompt Engineering specialist with experience in developing and deploying generative AI solutions. Specializing in prompt architectures, LLM fine-tuning, and AI agent development.",
-  keywords: ["AI Engineer", "Prompt Engineer", "NLP", "Machine Learning", "Generative AI", "LLM", "OpenAI"],
+  keywords: [
+    "AI Engineer",
+    "Prompt Engineer",
+    "NLP",
+    "Machine Learning",
+    "Generative AI",
+    "LLM",
+    "OpenAI",
+  ],
   authors: [{ name: "Elizaveta Tukhtina" }],
   creator: "Elizaveta Tukhtina",
   openGraph: {
@@ -28,7 +36,7 @@ export const metadata: Metadata = {
       "AI Engineer and Prompt Engineering specialist with experience in developing and deploying generative AI solutions.",
     creator: "@lizatukhtina",
   },
-  generator: "v0.app",
+  generator: "LT",
   icons: {
     icon: [
       {
@@ -46,12 +54,12 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="ru" className="dark">
@@ -60,5 +68,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }
