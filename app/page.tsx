@@ -524,7 +524,7 @@ export default function Portfolio() {
       <footer className="border-t border-border/40 bg-card/30 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-8 md:px-6">
           <p className="text-center text-sm text-muted-foreground">
-            © 2025 {t.hero.name}
+            © 2026 {t.hero.name}
           </p>
         </div>
       </footer>
